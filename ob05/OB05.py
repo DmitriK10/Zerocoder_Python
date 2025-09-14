@@ -28,18 +28,18 @@ class GameObject(ABC):
 
 class Paddle(GameObject):
     """
-    Класс ракетки, наследуется от GameObject.
+    Класс ракетки.
     """
 
     def __init__(self, x, y, width, height, color, speed):
         super().__init__(x, y, width, height, color)
-        self.speed = speed  # Скорость движения ракетки
-        self.score = 0  # Счет игрока
+        self.speed = speed          # Скорость движения ракетки
+        self.score = 0              # Счет игрока
 
     def update(self):
         """Обновление состояния ракетки. Ограничивает движение в пределах экрана."""
         if self.rect.top < 0:
-            self.rect.top = 0  # Не даем ракетке выйти за верхнюю границу
+            self.rect.top = 0       # Не даем ракетке выйти за верхнюю границу
         if self.rect.bottom > 600:
             self.rect.bottom = 600  # Не даем ракетке выйти за нижнюю границу
 
@@ -54,8 +54,8 @@ class Ball(GameObject):
 
     def __init__(self, x, y, radius, color, speed):
         super().__init__(x, y, radius * 2, radius * 2, color)
-        self.radius = radius  # Радиус мяча
-        self.speed = speed  # Скорость мяча
+        self.radius = radius        # Радиус мяча
+        self.speed = speed          # Скорость мяча
         # Начальное направление движения (случайное)
         self.direction = [random.choice([-1, 1]), random.choice([-1, 1])]
 
@@ -135,7 +135,7 @@ class DefaultGameSettings(GameSettings):
         self.paddle_speed = 6
 
         # Настройки игры
-        self.max_score = 5  # Игра до 5 очков
+        self.max_score = 5                      # Игра до 5 очков
 
     def get_background_color(self):
         return self.background_color
@@ -204,10 +204,10 @@ class DefaultScoreManager(ScoreManager):
     def get_winner(self):
         """Определение победителя игры"""
         if self.scores[0] >= self.max_score:
-            return 0  # Левый игрок победил
+            return 0                                # Левый игрок победил
         elif self.scores[1] >= self.max_score:
-            return 1  # Правый игрок победил
-        return -1  # Игра еще не окончена
+            return 1                                # Правый игрок победил
+        return -1                                   # Игра еще не окончена
 
     def draw(self, screen):
         """Отрисовка счета на экране"""
@@ -234,8 +234,8 @@ class KeyboardInputHandler(InputHandler):
     """
 
     def __init__(self, up_key, down_key):
-        self.up_key = up_key  # Клавиша для движения вверх
-        self.down_key = down_key  # Клавиша для движения вниз
+        self.up_key = up_key                        # Клавиша для движения вверх
+        self.down_key = down_key                    # Клавиша для движения вниз
 
     def handle_input(self, paddle):
         """Обработка нажатий клавиш и движение ракетки"""
@@ -281,7 +281,7 @@ class PongGame:
         # Создание окна игры
         self.screen = pygame.display.set_mode((800, 600))
         pygame.display.set_caption("Пинг-Понг")
-        self.clock = pygame.time.Clock()  # Для контроля FPS
+        self.clock = pygame.time.Clock()                # Для контроля FPS
 
         # Использование абстракций для настроек и фабрики
         self.settings = DefaultGameSettings()
@@ -315,22 +315,22 @@ class PongGame:
         self.input_handler2 = KeyboardInputHandler(pygame.K_UP, pygame.K_DOWN)
 
         # Состояние игры
-        self.running = True  # Флаг продолжения игрового цикла
-        self.game_over = False  # Флаг окончания игры
+        self.running = True                         # Флаг продолжения игрового цикла
+        self.game_over = False                      # Флаг окончания игры
 
     def run(self):
         """Запуск основного игрового цикла"""
         while self.running:
-            self.handle_events()  # Обработка событий
+            self.handle_events()                    # Обработка событий
 
             if not self.game_over:
-                self.handle_input()  # Обработка ввода
-                self.update()  # Обновление состояния игры
-                self.check_collisions()  # Проверка столкновений
-                self.check_game_over()  # Проверка окончания игры
+                self.handle_input()                 # Обработка ввода
+                self.update()                       # Обновление состояния игры
+                self.check_collisions()             # Проверка столкновений
+                self.check_game_over()              # Проверка окончания игры
 
-            self.render()  # Отрисовка игры
-            self.clock.tick(60)  # Ограничение до 60 FPS
+            self.render()                           # Отрисовка игры
+            self.clock.tick(60)                     # Ограничение до 60 FPS
 
         # Завершение работы
         pygame.quit()
@@ -340,10 +340,10 @@ class PongGame:
         """Обработка событий pygame (закрытие окна, нажатия клавиш)"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.running = False  # Завершаем игру при закрытии окна
+                self.running = False                # Завершаем игру при закрытии окна
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r and self.game_over:
-                    self.restart_game()  # Перезапуск игры по нажатию R
+                    self.restart_game()             # Перезапуск игры по нажатию R
 
     def handle_input(self):
         """Обработка ввода для обоих игроков"""
@@ -378,11 +378,11 @@ class PongGame:
 
         # Проверка выхода мяча за границы (гол)
         if self.ball.rect.left <= 0:
-            self.score_manager.update(1)  # Очко правому игроку
-            self.ball.reset()  # Сброс мяча
+            self.score_manager.update(1)                            # Очко правому игроку
+            self.ball.reset()                                       # Сброс мяча
         elif self.ball.rect.right >= 800:
-            self.score_manager.update(0)  # Очко левому игроку
-            self.ball.reset()  # Сброс мяча
+            self.score_manager.update(0)                            # Очко левому игроку
+            self.ball.reset()                                       # Сброс мяча
 
     def check_game_over(self):
         """Проверка условий окончания игры"""
