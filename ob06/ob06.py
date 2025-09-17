@@ -35,7 +35,7 @@ class Hero(ABC):
 # Класс Воин
 class Warrior(Hero):
     def attack(self, other):                    # Реализация метода атаки для воина
-        damage = self.calculate_damage()        # Рассчет случайного урона
+        damage = self.calculate_damage()        # Расчет случайного урона
         other.health -= damage
         return damage
 
@@ -59,7 +59,7 @@ class Game:
         # Основной игровой цикл
         while self.player.is_alive() and self.computer.is_alive():
             attacker = attackers[current]
-            defender = attackers[1 - current]   # Противник (0→1, 1→0)
+            defender = attackers[1 - current]   # Смена стороны
 
             # Выполняется атака
             damage = attacker.attack(defender)
