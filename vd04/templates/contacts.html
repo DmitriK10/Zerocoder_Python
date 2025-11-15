@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Достопримечательности России</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <ul class="nav nav-pills mb-4">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/blog/">Блог</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/contacts/">Контакты</a>
+            </li>
+        </ul>
+
+        <h1 class="text-center mb-4">Контакты</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Москва</h3>
+                        <p><strong>Адрес:</strong> Красная площадь, 1</p>
+                        <p><strong>Телефон:</strong> +7 (ХХХ) 123-45-67</p>
+                        <p><strong>Email:</strong> moscow@russia.ru</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Санкт-Петербург</h3>
+                        <p><strong>Адрес:</strong> Невский проспект</p>
+                        <p><strong>Телефон:</strong> +7 (ХХХ) ХХХ-ХХ-ХХ</p>
+                        <p><strong>Email:</strong> spb@russia.ru</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3 class="card-title">Форма обратной связи</h3>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Ваше имя</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Сообщение</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
