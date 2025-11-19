@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - Достопримечательности ЦФО{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1>Лучшие достопримечательности ЦФО</h1>
+    <p class="lead">Откройте для себя удивительные места Центрального Федерального Округа</p>
+</div>
+
+<h2 class="text-center mb-4">Популярные места</h2>
+<div class="row">
+    {% for attraction in attractions %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <!-- КОРОТКИЙ ПУТЬ - убрали url_for -->
+            <img src="/static/images/{{ attraction.image }}" class="card-img-top" alt="{{ attraction.name }}" style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ attraction.name }}</h5>
+                <p class="card-text">{{ attraction.description }}</p>
+                <p class="text-muted"><strong>Город:</strong> {{ attraction.city }}</p>
+                <p class="text-muted"><strong>Рейтинг:</strong> {{ attraction.rating }}/5</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="bg-light p-4 rounded mt-4">
+    <h3 class="text-center">Наша статистика</h3>
+    <div class="row text-center mt-3">
+        <div class="col-md-3">
+            <h4 class="text-primary">{{ stats.attractions_count }}+</h4>
+            <p>Достопримечательностей</p>
+        </div>
+        <div class="col-md-3">
+            <h4 class="text-primary">{{ stats.cities_count }}+</h4>
+            <p>Городов</p>
+        </div>
+        <div class="col-md-3">
+            <h4 class="text-primary">{{ stats.visitors }}+</h4>
+            <p>Посетителей в год</p>
+        </div>
+        <div class="col-md-3">
+            <h4 class="text-primary">{{ stats.regions }}+</h4>
+            <p>Регионов ЦФО</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
