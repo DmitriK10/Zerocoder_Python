@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Главная - Города России{% endblock %}
+
+{% block content %}
+<div class="city-header text-center">
+    <h1>Города России</h1>
+    <p>Исследуйте самые интересные города нашей страны</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <img src="{% static 'main/img/moscow.jpg' %}" class="card-img-top" alt="Москва">
+            <div class="card-body">
+                <h5>Москва</h5>
+                <p>Столица России с богатой историей</p>
+                <a href="{% url 'moscow' %}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <img src="{% static 'main/img/peter.jpg' %}" class="card-img-top" alt="Санкт-Петербург">
+            <div class="card-body">
+                <h5>Санкт-Петербург</h5>
+                <p>Культурная столица, город мостов</p>
+                <a href="{% url 'peter' %}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <img src="{% static 'main/img/sochi.jpg' %}" class="card-img-top" alt="Сочи">
+            <div class="card-body">
+                <h5>Сочи</h5>
+                <p>Курортный город на Черном море</p>
+                <a href="{% url 'sochi' %}" class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

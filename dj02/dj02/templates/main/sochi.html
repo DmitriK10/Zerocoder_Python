@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Сочи{% endblock %}
+
+{% block content %}
+<div class="city-header text-center">
+    <h1>Сочи</h1>
+    <p>Курортная столица России</p>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>Основная информация</h3>
+        <p>Сочи — крупнейший курортный город России на Черном море. Место проведения Олимпиады 2014.</p>
+
+        <div class="card">
+            <img src="{% static 'main/img/sochi_olimpic.jpg' %}" class="card-img-top" alt="Олимпийский парк">
+            <div class="card-body">
+                <h5>Олимпийский парк</h5>
+                <p>Место проведения Зимних Олимпийских игр 2014 года.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5>Факты о Сочи</h5>
+                <ul>
+                    <li>Население: 411 тыс.</li>
+                    <li>Протяженность: 145 км</li>
+                    <li>Климат: субтропический</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

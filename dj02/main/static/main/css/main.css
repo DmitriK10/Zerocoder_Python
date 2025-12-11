@@ -1,0 +1,104 @@
+/* Файл: C:\Users\ADATA\Documents\GitHub\Zerocoder_Python\dj02\main\static\main\css\main.css */
+
+/* Основные стили */
+body {
+    background-color: deeppink;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Боковая панель */
+aside {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-right: 25px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Изображение котика */
+aside img {
+    border-radius: 12px;
+    border: 4px solid deeppink;
+    margin-bottom: 15px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+/* Заголовок сайта */
+.site-title {
+    display: block;
+    font-size: 26px;
+    font-weight: bold;
+    color: deeppink;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Меню навигации */
+.nav-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-menu li {
+    margin-bottom: 12px;
+}
+
+.nav-menu a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    background-color: deeppink;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.nav-menu a:hover {
+    background-color: #ff1493;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Основной контент */
+main {
+    background-color: white;
+    padding: 35px;
+    border-radius: 15px;
+    flex-grow: 1;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Заголовки */
+h1 {
+    color: deeppink;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 32px;
+}
+
+h4 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+/* Параграфы */
+p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 16px;
+    margin-bottom: 15px;
+}

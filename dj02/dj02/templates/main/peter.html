@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Санкт-Петербург{% endblock %}
+
+{% block content %}
+<div class="city-header text-center">
+    <h1>Санкт-Петербург</h1>
+    <p>Культурная столица России</p>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>Основная информация</h3>
+        <p>Санкт-Петербург — второй по величине город России. Основан Петром I в 1703 году.</p>
+
+        <div class="card">
+            <img src="{% static 'main/img/peter_hermitage.jpg' %}" class="card-img-top" alt="Эрмитаж">
+            <div class="card-body">
+                <h5>Эрмитаж</h5>
+                <p>Один из крупнейших художественных музеев мира.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5>Факты о Петербурге</h5>
+                <ul>
+                    <li>Население: 5,6 млн</li>
+                    <li>Основан: 1703 год</li>
+                    <li>Мосты: более 800</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
