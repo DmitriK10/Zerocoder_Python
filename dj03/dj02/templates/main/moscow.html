@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Москва{% endblock %}
+
+{% block content %}
+<div class="city-header text-center">
+    <h1>Москва</h1>
+    <p>Столица России</p>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>Основная информация</h3>
+        <p>Москва — столица России, крупнейший город страны. Основана в 1147 году.</p>
+
+        <div class="card">
+            <img src="{% static 'main/img/moscow_kremlin.jpg' %}" class="card-img-top" alt="Московский Кремль">
+            <div class="card-body">
+                <h5>Московский Кремль</h5>
+                <p>Исторический центр Москвы, резиденция президента.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5>Факты о Москве</h5>
+                <ul>
+                    <li>Население: 13 млн</li>
+                    <li>Основана: 1147 год</li>
+                    <li>Площадь: 2561 км²</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
