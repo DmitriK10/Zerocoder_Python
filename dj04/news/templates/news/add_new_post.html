@@ -1,0 +1,121 @@
+{% extends 'main/layoute.html' %}
+
+{% block title %}
+    <title>Добавить новость</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Добавить новость</h1>
+    
+    <!-- Сообщение об ошибке -->
+    {% if error %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Ошибка!</strong> {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    
+    <!-- Форма для добавления новости -->
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}  <!-- Обязательная защита от CSRF атак -->
+        
+        <!-- Показываем общие ошибки формы -->
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <!-- Поле "Заголовок" -->
+        <div class="mb-3">
+            <label for="{{ form.title.id_for_label }}" class="form-label">Заголовок *</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.title.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="form-text">Обязательное поле. Максимум 50 символов.</div>
+        </div>
+        
+        <!-- Поле "Краткое описание" -->
+        <div class="mb-3">
+            <label for="{{ form.short_description.id_for_label }}" class="form-label">Краткое описание *</label>
+            {{ form.short_description }}
+            {% if form.short_description.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.short_description.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="form-text">Обязательное поле. Максимум 200 символов.</div>
+        </div>
+        
+        <!-- Поле "Текст новости" -->
+        <div class="mb-3">
+            <label for="{{ form.text.id_for_label }}" class="form-label">Текст новости *</label>
+            {{ form.text }}
+            {% if form.text.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.text.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Поле "Дата публикации" -->
+        <div class="mb-3">
+            <label for="{{ form.pub_date.id_for_label }}" class="form-label">Дата публикации *</label>
+            {{ form.pub_date }}
+            {% if form.pub_date.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.pub_date.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="form-text">Укажите дату и время публикации.</div>
+        </div>
+        
+        <!-- Кнопки отправки и отмены -->
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-success px-4">
+                <i class="bi bi-check-circle"></i> Опубликовать
+            </button>
+            <a href="{% url 'news_home' %}" class="btn btn-secondary px-4">
+                <i class="bi bi-x-circle"></i> Отмена
+            </a>
+        </div>
+    </form>
+</div>
+
+{% block scripts %}
+<script>
+    // Валидация формы на стороне клиента
+    (function () {
+        'use strict'
+        
+        var forms = document.querySelectorAll('.needs-validation')
+        
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}
+{% endblock %}

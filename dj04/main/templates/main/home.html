@@ -1,0 +1,19 @@
+{% extends 'main/layoute.html' %}
+
+{% block title %}
+    <title>Главная страница</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Добро пожаловать на сайт!</h1>
+        <p class="lead">Это главная страница вашего Django проекта.</p>
+        <hr class="my-4">
+        <p>Используйте навигационное меню для перехода между разделами.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'news_home' %}" role="button">
+            Перейти к новостям
+        </a>
+    </div>
+</div>
+{% endblock %}
