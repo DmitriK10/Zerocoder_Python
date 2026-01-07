@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <h1>Добро пожаловать на наш сайт!</h1>
+    
+    <p>Это тестовый проект для демонстрации системы аутентификации в Django.</p>
+    
+    {% if user.is_authenticated %}
+        <p>Вы авторизованы как <strong>{{ user.username }}</strong>.</p>
+        
+        <a href="{% url 'profile' %}">
+            <button>Перейти в профиль</button>
+        </a>
+    {% else %}
+        <p>Для доступа к полному функционалу необходимо авторизоваться.</p>
+        
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <a href="{% url 'login' %}">
+                <button>Войти</button>
+            </a>
+            <a href="{% url 'register' %}">
+                <button style="background: #28a745;">Зарегистрироваться</button>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
