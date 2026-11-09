@@ -206,7 +206,7 @@ class TaskServiceTests(TestCase):
         self.assertEqual(task.user, self.user)
         self.assertEqual(task.title, 'Test Task')
 
-    @patch('core.services.task_service.notification_service.notify_task_created')
+    @patch('core.services.base.NotificationService.notify_task_created')
     def test_create_task_sends_notification(self, mock_notify):
         service = TaskService(self.user)
         due = timezone.now() + timedelta(days=1)

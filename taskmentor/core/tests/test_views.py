@@ -615,11 +615,13 @@ class CronEndpointTests(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn('Напоминание', mail.outbox[0].subject)
 
+    @override_settings(CRON_TOKEN='test-token')
     def test_cron_endpoint_without_token(self):
         response = self.client.post(reverse('core:cron_reminders'))
         self.assertEqual(response.status_code, 401)
         self.assertEqual(response.json(), {'error': 'Unauthorized'})
 
+    @override_settings(CRON_TOKEN='test-token')
     def test_cron_endpoint_with_invalid_token(self):
         response = self.client.post(
             reverse('core:cron_reminders'),
@@ -686,6 +688,7 @@ class PushSubscriptionTests(TestCase):
             self.assertEqual(response.json(), {'key': 'test-public-key'})
 
     @patch('core.services.notification_service.webpush')
+    @override_settings(VAPID_PRIVATE_KEY='test-vapid-private-key')
     def test_send_push_notification_calls_webpush(self, mock_webpush):
         PushSubscription.objects.create(
             user=self.user,
@@ -702,6 +705,7 @@ class PushSubscriptionTests(TestCase):
         mock_webpush.assert_called_once()
 
     @patch('core.services.notification_service.webpush')
+    @override_settings(VAPID_PRIVATE_KEY='test-vapid-private-key')
     def test_send_push_notification_handles_410(self, mock_webpush):
         sub = PushSubscription.objects.create(
             user=self.user,

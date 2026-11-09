@@ -46,8 +46,10 @@ class Command(BaseCommand):
             try:
                 result = notification_service.notify_task_reminder(task)
 
-                # Считаем успехом, если хотя бы один канал не вернул None
-                if any(v for v in result.values() if v is not None):
+                # Успехом считается только реально отправленное уведомление.
+                # Значения 'disabled' (канал выключен) и 'failed' отправкой не являются,
+                # иначе задача помечалась бы отправленной при выключенных уведомлениях.
+                if 'sent' in result.values():
                     task.reminder_sent = True
                     task.save(update_fields=['reminder_sent'])
                     count += 1
