@@ -8,7 +8,7 @@
     }
 
     // 1. Регистрация Service Worker
-    const swUrl = window.SW_URL || '/static/js/sw.js';
+    const swUrl = window.SW_URL || '/sw.js';
     let registration;
     try {
         registration = await navigator.serviceWorker.register(swUrl);

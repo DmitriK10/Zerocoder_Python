@@ -21,7 +21,7 @@
 ## Стек технологий
 
 Backend: Python 3.10+, Django 5.2, django-allauth
-База данных: SQLite (при DEBUG=True), MySQL (при DEBUG=False, через переменные DB_*)
+База данных: SQLite (по умолчанию), MySQL (опционально, `DB_ENGINE=mysql`)
 Frontend: Bootstrap 5, FullCalendar, Chart.js
 Web Push: Service Worker, pywebpush, VAPID
 Mobile Push: Firebase Cloud Messaging (FCM), firebase-admin
@@ -134,7 +134,13 @@ python manage.py reassign_overdue_tasks
 * * * * * cd /путь/к/проекту && python manage.py send_task_reminders
 0 0 * * * cd /путь/к/проекту && python manage.py reassign_overdue_tasks
 
-На Railway / аналогичных платформах используйте встроенные планировщики (например, railway.json).
+Либо вызывайте защищённые HTTP-эндпоинты (нужен CRON_TOKEN из .env):
+
+curl -X POST https://your-domain.com/core/cron/run-reminders/ \
+  -H "Authorization: Bearer $CRON_TOKEN"
+
+curl -X POST https://your-domain.com/core/cron/reassign-tasks/ \
+  -H "Authorization: Bearer $CRON_TOKEN"
 
 ## Тестирование
 
@@ -144,25 +150,30 @@ python manage.py test core
 Запуск тестов только для команд:
 python manage.py test core.tests.test_commands
 
-Покрытие тестами: модели, представления, формы, сервисы, команды.
+Покрытие тестами: модели, представления, формы, сервисы, команды (81 тест).
 
 ## Деплой (продакшен)
 
-При `DEBUG=False` проект переключается на MySQL. Драйвер — `mysqlclient`, поэтому на сервере нужны заголовки MySQL:
+База данных по умолчанию — SQLite, как требует ТЗ. MySQL подключается опционально:
+задайте `DB_ENGINE=mysql` и параметры `DB_*` в `.env`.
+
+Для MySQL дополнительно установите драйвер (нужны dev-заголовки MySQL):
 
 ```
 sudo apt install python3-dev default-libmysqlclient-dev build-essential   # Debian/Ubuntu
+pip install mysqlclient==2.2.0
 ```
 
-1. Создайте базу MySQL и пользователя.
-2. Добавьте переменные окружения (из .env) в панели хостинга, включая `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`.
+1. (Только для MySQL) Создайте базу и пользователя.
+2. Добавьте переменные окружения в панели хостинга. Для MySQL — `DB_ENGINE`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`.
 3. Убедитесь, что для продакшена установлены:
    - `DEBUG = False`
    - `ALLOWED_HOSTS` содержит домен сайта.
    - `CSRF_TRUSTED_ORIGINS` содержит `https://<ваш-домен>`.
+   - `CRON_TOKEN` задан (иначе settings.py намеренно упадёт на старте).
 4. Выполните `python manage.py migrate` и `python manage.py collectstatic`.
 
-Файл `railway.json` оставлен от исходной конфигурации: для MySQL-хостинга он не нужен и его можно удалить.
+Файл `railway.json` оставлен от исходной конфигурации; при деплое на другой хостинг его можно удалить.
 
 ## Лицензия
 
@@ -172,21 +183,3 @@ sudo apt install python3-dev default-libmysqlclient-dev build-essential   # Debi
 
 Дмитрий Куприянюк — kupriyanyuk.d@yandex.ru
 Репозиторий: https://github.com/DmitriK10/Zerocoder_Python/tree/main/taskmentor
-
-## Запуск фоновых задач (cron)
-
-Для работы напоминаний и адаптивного планировщика используйте команды:
-
-python manage.py send_task_reminders
-python manage.py reassign_overdue_tasks
-
-Или вызывайте защищённые HTTP‑эндпоинты (необходим CRON_TOKEN из .env):
-
-curl -X POST https://your-domain.com/core/cron/run-reminders/ \
-  -H "Authorization: Bearer $CRON_TOKEN"
-
-curl -X POST https://your-domain.com/core/cron/reassign-tasks/ \
-  -H "Authorization: Bearer $CRON_TOKEN"
-
-На Railway и аналогичных платформах можно использовать встроенные планировщики,
-передавая заголовок Authorization, или выполнять команды напрямую (см. railway.json).

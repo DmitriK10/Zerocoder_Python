@@ -5,7 +5,6 @@ Django settings for taskmentor project.
 import os
 from pathlib import Path
 from decouple import config
-import dj_database_url
 
 # Принудительно отключаем проверку HTTPS для OAuth при локальной разработке
 if config('DEBUG', default=True, cast=bool):
@@ -71,24 +70,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'taskmentor.wsgi.application'
 
-if DEBUG:
-    # Разработка: SQLite
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    # Продакшен: MySQL через переменные окружения
+# База данных.
+# По умолчанию (и как требует ТЗ) — SQLite. MySQL включается опционально:
+# достаточно задать DB_ENGINE=mysql и параметры подключения в .env.
+DB_ENGINE = config('DB_ENGINE', default='sqlite').strip().lower()
+
+if DB_ENGINE == 'mysql':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': config('DB_NAME'),
             'USER': config('DB_USER'),
             'PASSWORD': config('DB_PASSWORD'),
-            'HOST': config('DB_HOST'),
-            'PORT': config('DB_PORT'),
+            'HOST': config('DB_HOST', default='127.0.0.1'),
+            'PORT': config('DB_PORT', default='3306'),
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 
