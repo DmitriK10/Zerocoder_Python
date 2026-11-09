@@ -21,7 +21,7 @@
 ## Стек технологий
 
 Backend: Python 3.10+, Django 5.2, django-allauth
-База данных: SQLite (разработка), PostgreSQL (продакшен)
+База данных: SQLite (при DEBUG=True), MySQL (при DEBUG=False, через переменные DB_*)
 Frontend: Bootstrap 5, FullCalendar, Chart.js
 Web Push: Service Worker, pywebpush, VAPID
 Mobile Push: Firebase Cloud Messaging (FCM), firebase-admin
@@ -146,17 +146,23 @@ python manage.py test core.tests.test_commands
 
 Покрытие тестами: модели, представления, формы, сервисы, команды.
 
-## Деплой (пример для Railway)
+## Деплой (продакшен)
 
-1. Создайте проект на Railway, подключите GitHub-репозиторий.
-2. Добавьте переменные окружения (из .env) в панели Railway.
-3. Установите DATABASE_URL для PostgreSQL (Railway предоставит автоматически).
-4. Добавьте файл railway.json в корень проекта (пример уже есть).
-5. Убедитесь, что в settings.py для продакшена установлены:
-   - DEBUG = False
-   - ALLOWED_HOSTS содержит домен Railway.
-   - CSRF_TRUSTED_ORIGINS содержит https://*.railway.app.
-6. Запустите деплой – Railway выполнит collectstatic и migrate автоматически.
+При `DEBUG=False` проект переключается на MySQL. Драйвер — `mysqlclient`, поэтому на сервере нужны заголовки MySQL:
+
+```
+sudo apt install python3-dev default-libmysqlclient-dev build-essential   # Debian/Ubuntu
+```
+
+1. Создайте базу MySQL и пользователя.
+2. Добавьте переменные окружения (из .env) в панели хостинга, включая `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_HOST`, `DB_PORT`.
+3. Убедитесь, что для продакшена установлены:
+   - `DEBUG = False`
+   - `ALLOWED_HOSTS` содержит домен сайта.
+   - `CSRF_TRUSTED_ORIGINS` содержит `https://<ваш-домен>`.
+4. Выполните `python manage.py migrate` и `python manage.py collectstatic`.
+
+Файл `railway.json` оставлен от исходной конфигурации: для MySQL-хостинга он не нужен и его можно удалить.
 
 ## Лицензия
 
