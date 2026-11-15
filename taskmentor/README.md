@@ -181,5 +181,5 @@ pip install mysqlclient==2.2.0
 
 ## Разработчик
 
-Дмитрий Куприянюк — kupriyanyuk.d@yandex.ru
+Дмитрий Куприянюк — dmitrii@kupriianiuk.ru
 Репозиторий: https://github.com/DmitriK10/Zerocoder_Python/tree/main/taskmentor
